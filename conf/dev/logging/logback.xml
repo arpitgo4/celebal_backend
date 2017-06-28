@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<configuration scan="true" scanPeriod="30 seconds">
+	<contextName>ramViewerLogger</contextName>
+
+	<property name="DEFAULT_LOG_LEVEL" value="INFO" />
+	<property name="LOG-FILE-NAME" value="ram-viewer-manager" />
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder class="net.logstash.logback.encoder.LogstashEncoder">
+			<includeCallerInfo>false</includeCallerInfo>
+			<fieldNames>
+				<version>[ignore]</version>
+			</fieldNames>
+		</encoder>
+	</appender>
+
+	<appender name="FILE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${logDir}/${LOG-FILE-NAME}.log</file>
+		<encoder class="net.logstash.logback.encoder.LogstashEncoder">
+			<includeCallerInfo>false</includeCallerInfo>
+			<fieldNames>
+				<version>[ignore]</version>
+			</fieldNames>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- daily rollover -->
+			<fileNamePattern>${logDir}/archivedLogs/archived-%d{yyyy-MMM-dd,aux}/${LOG-FILE-NAME}-%d{yyyy-MMM-dd}.log
+			</fileNamePattern>
+			<!-- keep 30 days' worth of history -->
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+	</appender>
+
+	<root level="${DEFAULT_LOG_LEVEL}">
+		<appender-ref ref="FILE" />
+		<appender-ref ref="STDOUT" />
+	</root>
+
+</configuration>
