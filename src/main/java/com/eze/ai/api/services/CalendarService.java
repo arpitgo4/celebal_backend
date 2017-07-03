@@ -5,27 +5,27 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.eze.ai.api.dao.ICalendarDao;
-import com.eze.ai.api.models.Calendar;
+import com.eze.ai.api.dao.ICalendarDAO;
+import com.eze.ai.api.models.EventCalendarData;
 @Service
 public class CalendarService implements ICalendarService{
 	@Autowired
-	private ICalendarDao calendarDao;
+	private ICalendarDAO calendarDao;
 
 	@Override
-	public Calendar getEventsById(int calendarId) {
-		Calendar obj= calendarDao.getEventsById(calendarId);
+	public EventCalendarData getEventsById(int calendarId) {
+		EventCalendarData obj= calendarDao.getEventsById(calendarId);
 		return obj;
 	}
 
 	@Override
-	public List<Calendar> getAllCalendarDetails() {
+	public List<EventCalendarData> getAllCalendarDetails() {
 		return calendarDao.getAllCalendarDetails();
 		
 	}
 
 	@Override
-	public void addCalendarDetails(Calendar calendar) {
+	public void addCalendarDetails(EventCalendarData calendar) {
 		calendarDao.AddCalendarDetails(calendar);
 		
 	}

@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.eze.ai.api.models.Calendar;
+import com.eze.ai.api.models.EventCalendarData;
 import com.eze.ai.api.services.ICalendarService;
 
 @Controller
@@ -27,17 +27,17 @@ public class CalendarEventsController {
 	@Autowired
 	private ICalendarService calendarService;
 	@GetMapping("calendarEvent/{id}")
-	public ResponseEntity<Calendar> getEventsById(@PathVariable("id") Integer id){
-				Calendar calendar=calendarService.getEventsById(id);
-		return new ResponseEntity<Calendar>(calendar,HttpStatus.OK);
+	public ResponseEntity<EventCalendarData> getEventsById(@PathVariable("id") Integer id){
+				EventCalendarData calendar=calendarService.getEventsById(id);
+		return new ResponseEntity<EventCalendarData>(calendar,HttpStatus.OK);
 	}
 	@GetMapping("calendarEvents")
-	private ResponseEntity<List<Calendar>> getAllCalendarEvents(){
-		List<Calendar> list=calendarService.getAllCalendarDetails();
-		return new ResponseEntity<List<Calendar>>(list,HttpStatus.OK);
+	private ResponseEntity<List<EventCalendarData>> getAllCalendarEvents(){
+		List<EventCalendarData> list=calendarService.getAllCalendarDetails();
+		return new ResponseEntity<List<EventCalendarData>>(list,HttpStatus.OK);
 	}
 	@PostMapping("calendarEvent")
-	private ResponseEntity<Void> addCalendarEevents(@RequestBody Calendar calendar,UriComponentsBuilder builder){
+	private ResponseEntity<Void> addCalendarEevents(@RequestBody EventCalendarData calendar,UriComponentsBuilder builder){
 		System.out.println("post mapping");
 		HttpHeaders headers=new HttpHeaders();
 		  headers.setLocation(builder.path("/calendarEvent/{id}").buildAndExpand(calendar.getCalendarId()).toUri());
