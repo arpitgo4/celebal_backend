@@ -28,18 +28,24 @@ public class SignUpDAO implements ISignUpDAO {
 	}
 
 	@Override
-	public boolean SignUpExists(String emailId, String password) {
-		String hql="FROM signup as signup where signup.emailId=? and signup.password=?";
-		System.out.println("first hi");
-		int count=entityManager.createQuery(hql).setParameter(1, emailId).setParameter(2, password)
-		.getResultList().size();
-		System.out.println("hi");
+	public boolean SignUpExists(String emailId) {
+		String hql="FROM Signup as signup where signup.emailId=?";
+		int count=entityManager.createQuery(hql).setParameter(1, emailId).getResultList().size();
+		System.out.println(count);
 		return count>0 ?true:false;
 	}
+	@Override
+	public boolean Sign(String emailId, String password) {
+		String hql="FROM Signup as signup where signup.emailId=? and signup.password=?";
+		int count=entityManager.createQuery(hql).setParameter(1, emailId).setParameter(2, password)
+		.getResultList().size();
+		return count>0 ?true:false;
+	}
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Signup> getAllSignupDetails() {
-		String hql="FROM signup as sign order by sign.signup_id";
+		String hql="FROM Signup as sign order by sign.signup_id";
 		
 		return (List<Signup>) entityManager.createQuery(hql).getResultList();
 	}

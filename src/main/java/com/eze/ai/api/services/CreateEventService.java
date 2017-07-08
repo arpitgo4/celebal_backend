@@ -6,12 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
-import com.eze.ai.api.dao.ICreateEventDao;
+import com.eze.ai.api.dao.ICreateEventDAO;
 import com.eze.ai.api.models.CreateEvents;
 @Service
 public class CreateEventService implements ICreateEventService{
 	@Autowired
-	private ICreateEventDao eventDao;
+	private ICreateEventDAO eventDao;
 
 	@Override
 	public List<CreateEvents> getAllEvents() {

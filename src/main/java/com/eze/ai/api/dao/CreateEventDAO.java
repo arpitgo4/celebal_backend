@@ -12,7 +12,7 @@ import com.eze.ai.api.models.CreateEvents;
 
 @Transactional
 @Repository
-public class CreateEventDao implements ICreateEventDao{
+public class CreateEventDAO implements ICreateEventDAO{
 	@PersistenceContext
 	private EntityManager entityManager;
 

@@ -13,6 +13,5 @@ public class ConnectorAPIMain {
 	public static void main(String[] args) {
 		LOGGER.info("Starting ConnectorAPI Service..!!");
 		SpringApplication.run(ConnectorAPIMain.class, args);
-
 	}
 }

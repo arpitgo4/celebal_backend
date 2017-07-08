@@ -8,4 +8,5 @@ public interface ISignUpService {
 		boolean addSignUpDetails(Signup signUp);
 		Signup getEmailId(String emailId);
 		List<Signup> getAllSignupDetails();
+		boolean SignIn(Signup signUp);
 }

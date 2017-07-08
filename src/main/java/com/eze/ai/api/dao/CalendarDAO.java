@@ -22,13 +22,19 @@ public class CalendarDAO implements ICalendarDAO{
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<EventCalendarData> getAllCalendarDetails() {
-		String hql="FROM Calendar as calendar order by calendar.calendar_id";
+		String hql="FROM EventCalendarData as calendar order by calendar.calendarId";
 		return (List<EventCalendarData>) entityManager.createQuery(hql).getResultList();
 	}
 
 	@Override
 	public void AddCalendarDetails(EventCalendarData calendar) {
-		entityManager.persist(calendar);
+		String hql = "FROM EventCalendarData as event WHERE event.eventId = ?";
+		int count = entityManager.createQuery(hql).setParameter(1, calendar.getEventId())
+		              .getResultList().size();
+		if(count>0){
+		}else{
+			entityManager.persist(calendar);	
+		}	
 		
 	}
 	@Override

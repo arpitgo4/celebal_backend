@@ -2,6 +2,7 @@ package com.eze.ai.api.models;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,10 +11,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.google.api.services.calendar.model.EventAttendee;
+
 
 
 @Entity
-@Table(name="calendar")
+@Table(name="event")
 public class EventCalendarData implements Serializable{
 	private static final long serialVersionUID = 3919675413983934062L;
 	@Id
@@ -30,7 +33,23 @@ public class EventCalendarData implements Serializable{
 	private String endTime;
 	@Column(name="attendee")
 	private String attendee;
+	@Column(name="evend_id")
+	private String eventId;
+	@Column(name="evend_description")
+	private String evntDescription;
 	
+	public String getEventId() {
+		return eventId;
+	}
+	public void setEventId(String eventId) {
+		this.eventId = eventId;
+	}
+	public String getEvntDescription() {
+		return evntDescription;
+	}
+	public void setEvntDescription(String evntDescription) {
+		this.evntDescription = evntDescription;
+	}
 	public EventCalendarData(){}
 	public int getCalendarId() {
 		return calendarId;
@@ -68,5 +87,6 @@ public class EventCalendarData implements Serializable{
 	public void setAttendee(String attendee) {
 		this.attendee = attendee;
 	}
+	
 		
 }

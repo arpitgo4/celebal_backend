@@ -21,6 +21,7 @@ import com.eze.ai.api.services.ICreateEventService;
 @RequestMapping("event")
 public class CreateEventsController {
 	
+	
 	@Autowired
 	private ICreateEventService eventService;
 	@GetMapping("createEvents/{id}")

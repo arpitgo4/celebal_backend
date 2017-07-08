@@ -10,6 +10,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,23 +27,29 @@ import com.eze.ai.api.services.ICalendarService;
 public class CalendarEventsController {
 	@Autowired
 	private ICalendarService calendarService;
+	
+	@CrossOrigin(origins = "http://localhost:3000")
 	@GetMapping("calendarEvent/{id}")
 	public ResponseEntity<EventCalendarData> getEventsById(@PathVariable("id") Integer id){
 				EventCalendarData calendar=calendarService.getEventsById(id);
 		return new ResponseEntity<EventCalendarData>(calendar,HttpStatus.OK);
 	}
+	@CrossOrigin(origins = "http://localhost:3000")
 	@GetMapping("calendarEvents")
 	private ResponseEntity<List<EventCalendarData>> getAllCalendarEvents(){
 		List<EventCalendarData> list=calendarService.getAllCalendarDetails();
 		return new ResponseEntity<List<EventCalendarData>>(list,HttpStatus.OK);
 	}
+	@CrossOrigin(origins = "http://localhost:3000")
 	@PostMapping("calendarEvent")
 	private ResponseEntity<Void> addCalendarEevents(@RequestBody EventCalendarData calendar,UriComponentsBuilder builder){
 		System.out.println("post mapping");
+		calendarService.addCalendarDetails(calendar);
 		HttpHeaders headers=new HttpHeaders();
 		  headers.setLocation(builder.path("/calendarEvent/{id}").buildAndExpand(calendar.getCalendarId()).toUri());
 		return new ResponseEntity<Void>(headers,HttpStatus.CREATED);
 	}
+	@CrossOrigin(origins = "http://localhost:3000")
 	@DeleteMapping("calendarEvent/{id}")
 	private ResponseEntity<Void> deleteCalendarEvent(@PathVariable("id") Integer id){
 		calendarService.deleteCalendarDetails(id);

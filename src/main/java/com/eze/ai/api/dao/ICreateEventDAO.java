@@ -5,7 +5,7 @@ import java.util.List;
 import com.eze.ai.api.models.CreateEvents;
 
 
-public interface ICreateEventDao {
+public interface ICreateEventDAO {
 	
 	List<CreateEvents> getAllEvents();
 	void addAllEvents(CreateEvents event);

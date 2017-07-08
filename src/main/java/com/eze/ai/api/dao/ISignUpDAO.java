@@ -8,6 +8,7 @@ public interface ISignUpDAO {
 	
 	void addSignUpDetails(Signup signUp);
 	Signup getEmailId(String emailId);
-	boolean SignUpExists(String emailId,String password);
+	boolean SignUpExists(String emailId);
 	List<Signup> getAllSignupDetails();
+	boolean Sign(String emailId, String password);
 }

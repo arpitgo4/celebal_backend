@@ -26,6 +26,7 @@ public class CalendarService implements ICalendarService{
 
 	@Override
 	public void addCalendarDetails(EventCalendarData calendar) {
+		System.out.println("pls");
 		calendarDao.AddCalendarDetails(calendar);
 		
 	}

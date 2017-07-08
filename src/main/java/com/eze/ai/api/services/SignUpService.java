@@ -10,15 +10,26 @@ import com.eze.ai.api.models.Signup;
 @Service
 public class SignUpService implements ISignUpService{
 	@Autowired
-	private ISignUpDAO signupDao;
+	private ISignUpDAO signupDao;	
+
+	@Override
+	public boolean SignIn(Signup signUp) {
+		if(signupDao.Sign(signUp.getEmailId(), signUp.getPassword())){
+			return true;
+		}else
+			return false;
+	}
+	
 	@Override
 	public boolean addSignUpDetails(Signup signup) {
-		if(signupDao.SignUpExists(signup.getEmailId(), signup.getPassword())){
+		System.out.println("signup");
+		if(signupDao.SignUpExists(signup.getEmailId())){
 			return false;
 		}else{
 			signupDao.addSignUpDetails(signup);
 			return true;
-	}
+		}	
+	
 	}
 	@Override
 	public Signup getEmailId(String emailId) {

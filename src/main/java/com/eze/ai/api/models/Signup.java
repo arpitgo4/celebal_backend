@@ -10,9 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 @Entity
-@Table (name="signup")
+@Table (name="sign")
 public class Signup implements Serializable {
-	private static final long serialVersionUID = -436526222372424484L;
+	//private static final long serialVersionUID = -436526222372424484L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="signup_id")
@@ -24,14 +24,14 @@ public class Signup implements Serializable {
 	@Column (name="password")
 	private String password;
 	@Column (name="date_of_birth")
-	private Date dateOfBirth;
+	private String dateOfBirth;
 	
 	
 
-	public Date getDateOfBirth() {
+	public String getDateOfBirth() {
 		return dateOfBirth;
 	}
-	public void setDateOfBirth(Date dateOfBirth) {
+	public void setDateOfBirth(String dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 	public Integer getSignupId() {
