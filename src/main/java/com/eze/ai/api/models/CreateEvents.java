@@ -27,6 +27,10 @@ public class CreateEvents implements Serializable{
 	private String endTime;
 	@Column(name="event_description")
 	private String eventDescription;
+	@Column(name="start_date")
+	private String startDate;
+	@Column(name="end_date")
+	private String endDate; 
 	@Column(name="attendee")
 	private String eventAttendee;
 	public int getEventId() {
@@ -71,6 +75,17 @@ public class CreateEvents implements Serializable{
 	public void setEndTime(String endTime) {
 		this.endTime = endTime;
 	}
-	
+	public String getStartDate() {
+		return startDate;
+	}
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+	public String getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
 
 }

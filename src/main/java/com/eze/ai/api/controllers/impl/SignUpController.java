@@ -26,11 +26,13 @@ public class SignUpController {
 	@Autowired
 	private ISignUpService iSignUpService; 
 	
-	@CrossOrigin(origins = "http://localhost:3000")
+	//@CrossOrigin(origins = "http://localhost:3000")
 	
 	@PostMapping("signup")
 	public ResponseEntity<List<Result>> addSignUpDetails(@RequestBody Signup signup,UriComponentsBuilder builder){
+		System.out.println("email="+signup.getEmailId());
 		 boolean flag = iSignUpService.addSignUpDetails(signup);
+		 System.out.println("after boolean");
 	        if (flag == false) {
 	        	return new ResponseEntity<List<Result>>(HttpStatus.CONFLICT);
 	        }
@@ -41,7 +43,7 @@ public class SignUpController {
 			list.add(new Result());
 	        return new ResponseEntity<List<Result>>(list,headers, HttpStatus.CREATED);
 	}
-	@CrossOrigin(origins = "http://localhost:3000")
+	//@CrossOrigin(origins = "http://localhost:3000")
 	@GetMapping("signup/{id}")
 	public ResponseEntity<Signup> getEmailId(@PathVariable("id") Integer id) {
 		System.out.println("controller getEmail");
@@ -49,7 +51,7 @@ public class SignUpController {
 		return new ResponseEntity<Signup>(signup, HttpStatus.OK);
 	}
 
-	@CrossOrigin(origins = "http://localhost:3000")
+	//@CrossOrigin(origins = "http://localhost:3000")
 	@PostMapping("signin")
 	public ResponseEntity<List<Result>> SignIn(@RequestBody Signup signup,UriComponentsBuilder builder){
 		boolean flag = iSignUpService.SignIn(signup);

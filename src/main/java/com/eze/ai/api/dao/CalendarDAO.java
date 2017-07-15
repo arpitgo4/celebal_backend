@@ -9,9 +9,10 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
 import com.eze.ai.api.models.EventCalendarData;
+import com.eze.ai.api.models.OutlookCalendarData;
 @Transactional
 @Repository
-public class CalendarDAO implements ICalendarDAO{
+public class CalendarDAO implements ICalendarDAO,Constant{
 	@PersistenceContext
 	private EntityManager entityManager;
 
@@ -22,12 +23,14 @@ public class CalendarDAO implements ICalendarDAO{
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<EventCalendarData> getAllCalendarDetails() {
-		String hql="FROM EventCalendarData as calendar order by calendar.calendarId";
+		String hql=Constant.GOOGLE_CALENDAR;
 		return (List<EventCalendarData>) entityManager.createQuery(hql).getResultList();
 	}
+	
+	
 
 	@Override
-	public void AddCalendarDetails(EventCalendarData calendar) {
+	public void AddGoogleCalendarDetails(EventCalendarData calendar) {
 		String hql = "FROM EventCalendarData as event WHERE event.eventId = ?";
 		int count = entityManager.createQuery(hql).setParameter(1, calendar.getEventId())
 		              .getResultList().size();
@@ -37,9 +40,16 @@ public class CalendarDAO implements ICalendarDAO{
 		}	
 		
 	}
+	
 	@Override
 	public void deleteCalendarDetails(int calendarId) {
 		entityManager.remove(getEventsById(calendarId));
+	}
+	@Override
+	public void AddOutlookCalendarDetails(OutlookCalendarData calendar) {
+		String hql=Constant.OUTLOOK_CALENDAR;
+		//entityManager.createQuery(hql).setParameter(1, calendar.getEventId()).getResultList().size();
+		entityManager.persist(calendar);
 	}
 	
 	

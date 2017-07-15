@@ -29,6 +29,7 @@ public class SignUpDAO implements ISignUpDAO {
 
 	@Override
 	public boolean SignUpExists(String emailId) {
+		System.out.println("exists");
 		String hql="FROM Signup as signup where signup.emailId=?";
 		int count=entityManager.createQuery(hql).setParameter(1, emailId).getResultList().size();
 		System.out.println(count);

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.eze.ai.api.models.EventCalendarData;
+import com.eze.ai.api.models.OutlookCalendarData;
 import com.eze.ai.api.services.ICalendarService;
 
 @Controller
@@ -35,16 +36,16 @@ public class CalendarEventsController {
 		return new ResponseEntity<EventCalendarData>(calendar,HttpStatus.OK);
 	}
 	@CrossOrigin(origins = "http://localhost:3000")
-	@GetMapping("calendarEvents")
+	@GetMapping("googlecalendarEvents")
 	private ResponseEntity<List<EventCalendarData>> getAllCalendarEvents(){
 		List<EventCalendarData> list=calendarService.getAllCalendarDetails();
 		return new ResponseEntity<List<EventCalendarData>>(list,HttpStatus.OK);
 	}
 	@CrossOrigin(origins = "http://localhost:3000")
-	@PostMapping("calendarEvent")
-	private ResponseEntity<Void> addCalendarEevents(@RequestBody EventCalendarData calendar,UriComponentsBuilder builder){
+	@PostMapping("googleCalendarEvent")
+	private ResponseEntity<Void> addGoogleCalendarEvents(@RequestBody EventCalendarData calendar,UriComponentsBuilder builder){
 		System.out.println("post mapping");
-		calendarService.addCalendarDetails(calendar);
+		calendarService.addGoogleCalendarDetails(calendar);
 		HttpHeaders headers=new HttpHeaders();
 		  headers.setLocation(builder.path("/calendarEvent/{id}").buildAndExpand(calendar.getCalendarId()).toUri());
 		return new ResponseEntity<Void>(headers,HttpStatus.CREATED);
@@ -54,5 +55,12 @@ public class CalendarEventsController {
 	private ResponseEntity<Void> deleteCalendarEvent(@PathVariable("id") Integer id){
 		calendarService.deleteCalendarDetails(id);
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+	}
+	@CrossOrigin(origins = "http://localhost:3000")
+	@PostMapping("outlookCalendarEvent")
+	private ResponseEntity<Void> addOutlookCalendarEevents(@RequestBody OutlookCalendarData calendar,UriComponentsBuilder builder){
+		calendarService.addOutlookCalendarDetails(calendar);
+		HttpHeaders headers=new HttpHeaders();
+		return new ResponseEntity<Void>(headers,HttpStatus.CREATED);
 	}
 }

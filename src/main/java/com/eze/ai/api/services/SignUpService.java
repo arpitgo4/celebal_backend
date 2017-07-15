@@ -22,7 +22,7 @@ public class SignUpService implements ISignUpService{
 	
 	@Override
 	public boolean addSignUpDetails(Signup signup) {
-		System.out.println("signup");
+		System.out.println("signup"+signup.getEmailId());
 		if(signupDao.SignUpExists(signup.getEmailId())){
 			return false;
 		}else{

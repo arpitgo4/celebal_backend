@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import com.eze.ai.api.dao.ICalendarDAO;
 import com.eze.ai.api.models.Access;
 import com.eze.ai.api.models.EventCalendarData;
+import com.eze.ai.api.models.OutlookCalendarData;
 import com.google.api.client.auth.oauth2.BearerToken;
 import com.google.api.client.auth.oauth2.ClientParametersAuthentication;
 import com.google.api.client.auth.oauth2.Credential;
@@ -114,7 +115,7 @@ public class AccessService implements IAccessService{
 	                eventdata.setEventLocation(event.getLocation());
 	                eventdata.setEventName(event.getSummary());
 	                eventdata.setEndTime(EndTime);
-	                eventdata.setEvntDescription(event.getDescription());
+	                eventdata.setEventDescription(event.getDescription());
 	                eventdata.setEventId(event.getId());
 	               // eventdata.setAttendee(event.getAttendees().toArray(new String[event.getAttendees().size()]));
 	                event.setAttendees(event.getAttendees());
@@ -127,7 +128,7 @@ public class AccessService implements IAccessService{
 	                System.out.println("status: "+attendees.getResponseStatus());
 	                }
 	               }
-	               iCalendarDAO.AddCalendarDetails(eventdata);  
+	               iCalendarDAO.AddGoogleCalendarDetails(eventdata);  
 	            }
 	        }
 	        
@@ -156,8 +157,9 @@ public class AccessService implements IAccessService{
 			JSONObject jsonObj=(JSONObject)parser.parse(result.toString());
 			JSONArray arr=(JSONArray)jsonObj.get("value");
 			//System.out.println("Size="+arr.size());
+			if(arr!=null)
 			for(int i=0;i<arr.size();i++){
-				EventCalendarData eventdata=new EventCalendarData();
+				OutlookCalendarData eventdata=new OutlookCalendarData();
 				JSONObject jsonOb=(JSONObject)arr.get(i);
 				String subject=(String)jsonOb.get("subject");
 				String id=(String)jsonOb.get("id");
@@ -170,7 +172,7 @@ public class AccessService implements IAccessService{
 				JSONObject attendeeEmail=(JSONObject)attendeeObj.get("emailAddress");
 				String emailId=(String)attendeeEmail.get("address");
 				attendeeArray[j]=emailId;
-				eventdata.setAttendee(emailId);
+				eventdata.setAttendees(emailId);
 			
 				}
 				JSONObject locationobj=(JSONObject)jsonOb.get("location");
@@ -188,12 +190,13 @@ public class AccessService implements IAccessService{
 				System.out.println("endTime="+endTime);
 				
 				eventdata.setEventName(subject);
-				eventdata.setEvntDescription(description);
+				eventdata.setEventDescription(description);
 				eventdata.setStartTime(startTime);
 				eventdata.setEventLocation(location);
 				eventdata.setEventId(id);
 				eventdata.setEndTime(endTime);
-				
+				System.out.println();
+				 iCalendarDAO.AddOutlookCalendarDetails(eventdata);  				
 			}
 				 
 			

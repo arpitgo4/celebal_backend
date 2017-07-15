@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.eze.ai.api.dao.ICalendarDAO;
 import com.eze.ai.api.models.EventCalendarData;
+import com.eze.ai.api.models.OutlookCalendarData;
 @Service
 public class CalendarService implements ICalendarService{
 	@Autowired
@@ -25,9 +26,8 @@ public class CalendarService implements ICalendarService{
 	}
 
 	@Override
-	public void addCalendarDetails(EventCalendarData calendar) {
-		System.out.println("pls");
-		calendarDao.AddCalendarDetails(calendar);
+	public void addGoogleCalendarDetails(EventCalendarData calendar) {
+		calendarDao.AddGoogleCalendarDetails(calendar);
 		
 	}
 
@@ -36,6 +36,16 @@ public class CalendarService implements ICalendarService{
 		calendarDao.deleteCalendarDetails(calendarId);
 		
 	}
+
+	@Override
+	public void addOutlookCalendarDetails(OutlookCalendarData calendar) {
+		
+		calendarDao.AddOutlookCalendarDetails(calendar);
+		
+		
+	}
+	
+	
 	
 
 }
